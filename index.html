@@ -4,13 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Text Analyzer</title>
+    <script type="text/python" src="text_analyzer.py"></script>
 </head>
 <body>
     <h1>Text Analyzer</h1>
-    <form action="/analyze" method="post">
-        <label for="text">Input your text here:</label><br>
-        <textarea id="text" name="text" rows="4" cols="50"></textarea><br>
-        <input type="submit" value="Submit">
-    </form>
+    <textarea id="inputText" rows="5" cols="50"></textarea>
+    <button onclick="analyzeText()">Analyze Text</button>
+    <div id="output"></div>
+
+    <script type="text/javascript">
+        function analyzeText() {
+            var text = document.getElementById("inputText").value;
+            var analysis = PythonInterop.call("analyze_text", text);
+            document.getElementById("output").innerHTML = `
+                <p>In your text there are:</p>
+                <p>${analysis.vowels} vowels</p>
+                <p>${analysis.consonants} consonants</p>
+                <p>${analysis.total_letters} total letters</p>
+                <p>${analysis.y} "y"s</p>
+                <p>${analysis.spaces} spaces</p>
+                <p>${analysis.words} words</p>
+                <p>${analysis.sentences} sentences</p>
+            `;
+        }
+    </script>
+
+    <script type="text/javascript" src="pyscript.js"></script>
 </body>
 </html>
