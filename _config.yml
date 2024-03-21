@@ -1,0 +1,6 @@
+
+4. **Configuration File (`_config.yml`)**:
+   This configuration file is required by Jekyll.
+
+```yaml
+theme: minima
