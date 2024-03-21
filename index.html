@@ -3,32 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Analyzer</title>
-    <script type="text/python" src="text_analyzer.py"></script>
+    <title>Text Analysis Tool</title>
 </head>
 <body>
-    <h1>Text Analyzer</h1>
-    <textarea id="inputText" rows="5" cols="50"></textarea>
-    <button onclick="analyzeText()">Analyze Text</button>
-    <div id="output"></div>
+    <h1>Text Analysis Tool</h1>
+    <form id="textForm">
+        <label for="textInput">Input your text here for analysis:</label><br>
+        <textarea id="textInput" name="text" rows="4" cols="50"></textarea><br>
+        <button type="submit">Analyze Text</button>
+    </form>
+    <div id="analysisResults"></div>
 
-    <script type="text/javascript">
-        function analyzeText() {
-            var text = document.getElementById("inputText").value;
-            var analysis = PythonInterop.call("analyze_text", text);
-            document.getElementById("output").innerHTML = `
-                <p>In your text there are:</p>
-                <p>${analysis.vowels} vowels</p>
-                <p>${analysis.consonants} consonants</p>
-                <p>${analysis.total_letters} total letters</p>
-                <p>${analysis.y} "y"s</p>
-                <p>${analysis.spaces} spaces</p>
-                <p>${analysis.words} words</p>
-                <p>${analysis.sentences} sentences</p>
-            `;
-        }
+    <!-- Python code block (will be replaced by GitHub Pages) -->
+    {% comment %}
+    ```python
+    def sentiment_analyzer(text):
+        # Your Python sentiment analysis code here
+        pass
+    ```
+    {% endcomment %}
+
+    <!-- Script to submit form data and display results -->
+    <script>
+        document.getElementById("textForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            fetch('analysis', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("analysisResults").innerHTML = data;
+            });
+        });
     </script>
-
-    <script type="text/javascript" src="pyscript.js"></script>
 </body>
 </html>
